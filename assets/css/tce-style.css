@@ -1,0 +1,1595 @@
+/* ========================================
+   时光邮局 - 完全独立样式系统
+   ======================================== */
+
+/* 完全独立的容器 */
+.tce-isolated-wrapper {
+    all: initial;
+    display: block;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+    background: transparent;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* 重置所有子元素 */
+.tce-isolated-wrapper * {
+    all: unset;
+    display: revert;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+/* 恢复基本元素样式 */
+.tce-isolated-wrapper a {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.tce-isolated-wrapper button {
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tce-isolated-wrapper input,
+.tce-isolated-wrapper textarea,
+.tce-isolated-wrapper select {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+/* CSS变量 */
+:root {
+    --tce-primary: #4a90e2;
+    --tce-primary-hover: #357abd;
+    --tce-primary-light: #e3f2fd;
+    --tce-success: #52c41a;
+    --tce-error: #ff4d4f;
+    --tce-warning: #faad14;
+    --tce-text: #333333;
+    --tce-text-secondary: #666666;
+    --tce-text-light: #999999;
+    --tce-border: #f0f0f0;
+    --tce-bg: #ffffff;
+    --tce-bg-light: #f8f9fa;
+    --tce-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --tce-shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.12);
+    --tce-radius: 8px;
+    --tce-radius-small: 4px;
+    --tce-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Font Awesome图标 */
+.tce-isolated-wrapper .fas,
+.tce-isolated-wrapper .far,
+.tce-isolated-wrapper .fab,
+.tce-isolated-wrapper .fa {
+    font-family: "Font Awesome 6 Free" !important;
+    font-weight: 900 !important;
+    font-style: normal !important;
+    font-variant: normal !important;
+    text-rendering: auto !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    display: inline-block !important;
+}
+
+.tce-isolated-wrapper .far {
+    font-weight: 400 !important;
+}
+
+.tce-isolated-wrapper .fab {
+    font-family: "Font Awesome 6 Brands" !important;
+    font-weight: 400 !important;
+}
+
+/* ========================================
+   主容器
+   ======================================== */
+.tce-isolated-wrapper .tce-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0;
+    background: var(--tce-bg);
+    border-radius: var(--tce-radius);
+    box-shadow: var(--tce-shadow);
+    overflow: hidden;
+}
+
+/* ========================================
+   标签页
+   ======================================== */
+.tce-isolated-wrapper .tce-tabs {
+    display: flex;
+    background: var(--tce-bg-light);
+    border-bottom: 2px solid var(--tce-border);
+    padding: 0;
+    margin: 0;
+}
+
+.tce-isolated-wrapper .tce-tab {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px 20px;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: var(--tce-text-secondary);
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--tce-transition);
+}
+
+.tce-isolated-wrapper .tce-tab i {
+    font-size: 16px;
+    display: inline-block;
+    width: auto;
+    height: auto;
+    line-height: 1;
+}
+
+.tce-isolated-wrapper .tce-tab:hover {
+    background: rgba(74, 144, 226, 0.05);
+    color: var(--tce-primary);
+}
+
+.tce-isolated-wrapper .tce-tab.active {
+    background: var(--tce-bg);
+    color: var(--tce-primary);
+    border-bottom-color: var(--tce-primary);
+    font-weight: 600;
+}
+
+/* ========================================
+   内容区域
+   ======================================== */
+.tce-isolated-wrapper .tce-tab-content {
+    display: none !important;
+    padding: 32px;
+    background: transparent;
+    animation: tce-fadeIn 0.3s ease;
+}
+
+.tce-isolated-wrapper .tce-tab-content.active {
+    display: block !important;
+}
+
+@keyframes tce-fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   表单
+   ======================================== */
+.tce-isolated-wrapper .tce-form {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.tce-isolated-wrapper .tce-form-group {
+    margin-bottom: 24px;
+}
+
+.tce-isolated-wrapper .tce-form label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--tce-text);
+}
+
+.tce-isolated-wrapper .tce-form label i {
+    color: var(--tce-primary);
+    font-size: 14px;
+    width: auto;
+    height: auto;
+    line-height: 1;
+}
+
+.tce-isolated-wrapper .tce-form input[type="email"],
+.tce-isolated-wrapper .tce-form input[type="text"],
+.tce-isolated-wrapper .tce-form input[type="date"] {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--tce-border);
+    border-radius: var(--tce-radius-small);
+    font-size: 15px;
+    color: var(--tce-text);
+    background: var(--tce-bg);
+    transition: var(--tce-transition);
+    outline: none;
+}
+
+/* ========================================
+   Quill编辑器 - iframe隔离方案
+   ======================================== */
+.tce-isolated-wrapper .tce-editor-wrapper {
+    border: 1px solid var(--tce-border);
+    border-radius: var(--tce-radius-small);
+    overflow: hidden;
+    background: var(--tce-bg);
+    transition: var(--tce-transition);
+    display: block !important;
+}
+
+.tce-isolated-wrapper .tce-editor-wrapper:focus-within {
+    border-color: var(--tce-primary);
+    box-shadow: 0 0 0 3px var(--tce-primary-light);
+}
+
+.tce-isolated-wrapper #tce-editor-iframe {
+    width: 100%;
+    height: 300px;
+    border: none;
+    display: block;
+}
+
+.tce-isolated-wrapper .tce-form input::placeholder,
+.tce-isolated-wrapper .tce-form textarea::placeholder {
+    color: var(--tce-text-light);
+}
+
+.tce-isolated-wrapper .tce-form input:focus,
+.tce-isolated-wrapper .tce-form textarea:focus {
+    border-color: var(--tce-primary);
+    box-shadow: 0 0 0 3px var(--tce-primary-light);
+}
+
+.tce-isolated-wrapper .tce-input-hint {
+    display: none;
+    margin-top: 4px;
+    font-size: 12px;
+    color: var(--tce-text-light);
+    line-height: 1.4;
+}
+
+/* 只在移动端显示提示 */
+@media (max-width: 768px) {
+    .tce-isolated-wrapper .tce-input-hint {
+        display: block;
+    }
+}
+
+/* ========================================
+   Quill编辑器
+   ======================================== */
+.tce-isolated-wrapper .tce-editor-wrapper {
+    border: 1px solid var(--tce-border);
+    border-radius: var(--tce-radius-small);
+    overflow: visible;
+    background: var(--tce-bg);
+    transition: var(--tce-transition);
+    display: block !important;
+}
+
+.tce-isolated-wrapper .tce-editor-wrapper:focus-within {
+    border-color: var(--tce-primary);
+    box-shadow: 0 0 0 3px var(--tce-primary-light);
+}
+
+/* 工具栏 */
+.tce-isolated-wrapper .ql-toolbar {
+    display: block !important;
+    border: 1px solid #ccc !important;
+    border-bottom: 1px solid #ccc !important;
+    padding: 8px !important;
+    background: #fafafa !important;
+    box-sizing: border-box !important;
+}
+
+.tce-isolated-wrapper .ql-formats {
+    display: inline-block !important;
+    vertical-align: middle !important;
+    margin-right: 15px !important;
+}
+
+/* 工具栏按钮 */
+.tce-isolated-wrapper .ql-toolbar button {
+    display: inline-block !important;
+    width: 28px !important;
+    height: 24px !important;
+    padding: 3px 5px !important;
+    cursor: pointer !important;
+    vertical-align: middle !important;
+    background: transparent !important;
+    border: 1px solid transparent !important;
+    box-sizing: border-box !important;
+}
+
+.tce-isolated-wrapper .ql-toolbar button:hover {
+    background: #e0e0e0 !important;
+}
+
+.tce-isolated-wrapper .ql-toolbar button.ql-active {
+    background: #d0d0d0 !important;
+}
+
+/* SVG图标 */
+.tce-isolated-wrapper .ql-toolbar button svg {
+    display: block !important;
+    width: 18px !important;
+    height: 18px !important;
+    margin: 0 auto !important;
+    pointer-events: none !important;
+}
+
+/* SVG内部元素必须显示 */
+.tce-isolated-wrapper .ql-toolbar svg *,
+.tce-isolated-wrapper .ql-toolbar svg line,
+.tce-isolated-wrapper .ql-toolbar svg path,
+.tce-isolated-wrapper .ql-toolbar svg polygon,
+.tce-isolated-wrapper .ql-toolbar svg polyline,
+.tce-isolated-wrapper .ql-toolbar svg rect,
+.tce-isolated-wrapper .ql-toolbar svg circle,
+.tce-isolated-wrapper .ql-toolbar svg ellipse,
+.tce-isolated-wrapper .ql-toolbar svg g {
+    display: initial !important;
+    box-sizing: initial !important;
+}
+
+.tce-isolated-wrapper .ql-stroke {
+    display: initial !important;
+    fill: none !important;
+    stroke: #444 !important;
+    stroke-linecap: round !important;
+    stroke-linejoin: round !important;
+    stroke-width: 2 !important;
+}
+
+.tce-isolated-wrapper .ql-fill {
+    display: initial !important;
+    fill: #444 !important;
+    stroke: none !important;
+}
+
+.tce-isolated-wrapper .ql-stroke.ql-fill {
+    display: initial !important;
+    fill: #444 !important;
+    stroke: #444 !important;
+}
+
+.tce-isolated-wrapper .ql-even {
+    display: initial !important;
+    fill-rule: evenodd !important;
+}
+
+.tce-isolated-wrapper .ql-thin {
+    display: initial !important;
+    stroke-width: 1 !important;
+}
+
+.tce-isolated-wrapper .ql-transparent {
+    display: initial !important;
+    opacity: 0.4 !important;
+}
+
+/* 确保所有SVG图标都能显示 - 更强制的规则 */
+.tce-isolated-wrapper .ql-toolbar button.ql-bold svg *,
+.tce-isolated-wrapper .ql-toolbar button.ql-underline svg *,
+.tce-isolated-wrapper .ql-toolbar button.ql-link svg *,
+.tce-isolated-wrapper .ql-toolbar button.ql-image svg *,
+.tce-isolated-wrapper .ql-toolbar button.ql-blockquote svg * {
+    display: initial !important;
+    fill: inherit !important;
+    stroke: inherit !important;
+}
+
+/* 特殊处理：粗体图标 - path使用stroke */
+.tce-isolated-wrapper .ql-toolbar button.ql-bold svg path.ql-stroke {
+    display: initial !important;
+    fill: none !important;
+    stroke: #444 !important;
+    stroke-width: 2 !important;
+}
+
+.tce-isolated-wrapper .ql-toolbar button.ql-bold:hover svg path.ql-stroke,
+.tce-isolated-wrapper .ql-toolbar button.ql-bold.ql-active svg path.ql-stroke {
+    stroke: #06c !important;
+}
+
+/* 特殊处理：下划线图标 - path用stroke，rect用fill */
+.tce-isolated-wrapper .ql-toolbar button.ql-underline svg path.ql-stroke {
+    display: initial !important;
+    fill: none !important;
+    stroke: #444 !important;
+    stroke-width: 2 !important;
+}
+
+.tce-isolated-wrapper .ql-toolbar button.ql-underline svg rect.ql-fill {
+    display: initial !important;
+    fill: #444 !important;
+    stroke: none !important;
+}
+
+.tce-isolated-wrapper .ql-toolbar button.ql-underline:hover svg path.ql-stroke,
+.tce-isolated-wrapper .ql-toolbar button.ql-underline.ql-active svg path.ql-stroke {
+    stroke: #06c !important;
+}
+
+.tce-isolated-wrapper .ql-toolbar button.ql-underline:hover svg rect.ql-fill,
+.tce-isolated-wrapper .ql-toolbar button.ql-underline.ql-active svg rect.ql-fill {
+    fill: #06c !important;
+}
+
+/* 特殊处理：引用图标 - 使用stroke */
+.tce-isolated-wrapper .ql-toolbar button.ql-blockquote svg line.ql-stroke {
+    display: initial !important;
+    fill: none !important;
+    stroke: #444 !important;
+    stroke-width: 2 !important;
+}
+
+.tce-isolated-wrapper .ql-toolbar button.ql-blockquote:hover svg line.ql-stroke,
+.tce-isolated-wrapper .ql-toolbar button.ql-blockquote.ql-active svg line.ql-stroke {
+    stroke: #06c !important;
+}
+
+/* 特殊处理：链接图标 - line和path都用stroke，注意.ql-even */
+.tce-isolated-wrapper .ql-toolbar button.ql-link svg line.ql-stroke,
+.tce-isolated-wrapper .ql-toolbar button.ql-link svg path.ql-even.ql-stroke {
+    display: initial !important;
+    fill: none !important;
+    stroke: #444 !important;
+    stroke-width: 2 !important;
+}
+
+.tce-isolated-wrapper .ql-toolbar button.ql-link:hover svg line.ql-stroke,
+.tce-isolated-wrapper .ql-toolbar button.ql-link:hover svg path.ql-even.ql-stroke,
+.tce-isolated-wrapper .ql-toolbar button.ql-link.ql-active svg line.ql-stroke,
+.tce-isolated-wrapper .ql-toolbar button.ql-link.ql-active svg path.ql-even.ql-stroke {
+    stroke: #06c !important;
+}
+
+/* 特殊处理：图片图标 - rect用stroke，circle和polyline用fill */
+.tce-isolated-wrapper .ql-toolbar button.ql-image svg rect.ql-stroke {
+    display: initial !important;
+    fill: none !important;
+    stroke: #444 !important;
+    stroke-width: 2 !important;
+}
+
+.tce-isolated-wrapper .ql-toolbar button.ql-image svg circle.ql-fill,
+.tce-isolated-wrapper .ql-toolbar button.ql-image svg polyline.ql-even.ql-fill {
+    display: initial !important;
+    fill: #444 !important;
+    stroke: none !important;
+}
+
+.tce-isolated-wrapper .ql-toolbar button.ql-image:hover svg rect.ql-stroke,
+.tce-isolated-wrapper .ql-toolbar button.ql-image.ql-active svg rect.ql-stroke {
+    stroke: #06c !important;
+}
+
+.tce-isolated-wrapper .ql-toolbar button.ql-image:hover svg circle.ql-fill,
+.tce-isolated-wrapper .ql-toolbar button.ql-image:hover svg polyline.ql-even.ql-fill,
+.tce-isolated-wrapper .ql-toolbar button.ql-image.ql-active svg circle.ql-fill,
+.tce-isolated-wrapper .ql-toolbar button.ql-image.ql-active svg polyline.ql-even.ql-fill {
+    fill: #06c !important;
+}
+
+.tce-isolated-wrapper .ql-toolbar button:hover .ql-stroke {
+    stroke: #06c !important;
+}
+
+.tce-isolated-wrapper .ql-toolbar button:hover .ql-fill {
+    fill: #06c !important;
+}
+
+.tce-isolated-wrapper .ql-toolbar button.ql-active .ql-stroke {
+    stroke: #06c !important;
+}
+
+.tce-isolated-wrapper .ql-toolbar button.ql-active .ql-fill {
+    fill: #06c !important;
+}
+
+/* 下拉选择器 */
+.tce-isolated-wrapper .ql-picker {
+    display: inline-block !important;
+    font-size: 14px !important;
+    color: #444 !important;
+    position: relative !important;
+    vertical-align: middle !important;
+}
+
+.tce-isolated-wrapper .ql-picker-label {
+    cursor: pointer !important;
+    display: inline-block !important;
+    height: 24px !important;
+    padding: 3px 5px !important;
+    position: relative !important;
+}
+
+.tce-isolated-wrapper .ql-picker-label::before {
+    display: inline-block !important;
+    line-height: 22px !important;
+}
+
+.tce-isolated-wrapper .ql-picker-options {
+    display: none !important;
+    position: absolute !important;
+    background: #fff !important;
+    border: 1px solid #ccc !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2) !important;
+    padding: 4px 0 !important;
+    z-index: 1000 !important;
+    min-width: 100px !important;
+}
+
+.tce-isolated-wrapper .ql-picker.ql-expanded .ql-picker-options {
+    display: block !important;
+}
+
+.tce-isolated-wrapper .ql-picker-item {
+    cursor: pointer !important;
+    display: block !important;
+    padding: 5px 10px !important;
+}
+
+.tce-isolated-wrapper .ql-picker-item:hover {
+    background: #f0f0f0 !important;
+}
+
+/* 编辑器容器和内容区 */
+.tce-isolated-wrapper .ql-container {
+    display: block !important;
+    border: none !important;
+    box-sizing: border-box !important;
+    font-family: inherit !important;
+    font-size: 15px !important;
+    position: relative !important;
+}
+
+.tce-isolated-wrapper .ql-editor {
+    display: block !important;
+    min-height: 200px !important;
+    padding: 12px 15px !important;
+    line-height: 1.6 !important;
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
+    outline: none !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+}
+
+.tce-isolated-wrapper .ql-editor.ql-blank::before {
+    color: #999 !important;
+    content: attr(data-placeholder) !important;
+    font-style: italic !important;
+    left: 15px !important;
+    right: 15px !important;
+    pointer-events: none !important;
+    position: absolute !important;
+    display: inline-block !important;
+}
+
+/* 编辑器内容样式 */
+.tce-isolated-wrapper .ql-editor p {
+    display: block !important;
+    margin: 0 0 1em 0 !important;
+}
+
+.tce-isolated-wrapper .ql-editor strong {
+    font-weight: bold !important;
+}
+
+.tce-isolated-wrapper .ql-editor em {
+    font-style: italic !important;
+}
+
+.tce-isolated-wrapper .ql-editor u {
+    text-decoration: underline !important;
+}
+
+.tce-isolated-wrapper .ql-editor s {
+    text-decoration: line-through !important;
+}
+
+.tce-isolated-wrapper .ql-editor ol,
+.tce-isolated-wrapper .ql-editor ul {
+    display: block !important;
+    padding-left: 1.5em !important;
+    margin: 0 0 1em 0 !important;
+}
+
+.tce-isolated-wrapper .ql-editor li {
+    display: list-item !important;
+}
+
+.tce-isolated-wrapper .ql-editor ol li {
+    list-style-type: decimal !important;
+}
+
+.tce-isolated-wrapper .ql-editor ul li {
+    list-style-type: disc !important;
+}
+
+/* ========================================
+   按钮
+   ======================================== */
+.tce-isolated-wrapper .tce-form-actions {
+    margin-top: 32px;
+    text-align: center;
+}
+
+.tce-isolated-wrapper .tce-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 32px;
+    background: var(--tce-primary);
+    color: white;
+    border: none;
+    border-radius: var(--tce-radius);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--tce-transition);
+    box-shadow: 0 2px 4px rgba(74, 144, 226, 0.3);
+}
+
+.tce-isolated-wrapper .tce-button i {
+    font-size: 16px;
+    width: auto;
+    height: auto;
+    line-height: 1;
+}
+
+.tce-isolated-wrapper .tce-button:hover {
+    background: var(--tce-primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+}
+
+.tce-isolated-wrapper .tce-button:active {
+    transform: translateY(0);
+}
+
+.tce-isolated-wrapper .tce-button:disabled {
+    background: var(--tce-text-light);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* ========================================
+   消息提示
+   ======================================== */
+.tce-isolated-wrapper .tce-message {
+    display: none;
+    margin-top: 20px;
+    padding: 14px 18px;
+    border-radius: var(--tce-radius-small);
+    font-size: 14px;
+    animation: tce-slideDown 0.3s ease;
+}
+
+.tce-isolated-wrapper .tce-message.success {
+    background: #f6ffed;
+    border: 1px solid #b7eb8f;
+    color: #52c41a;
+}
+
+.tce-isolated-wrapper .tce-message.error {
+    background: #fff2f0;
+    border: 1px solid #ffccc7;
+    color: #ff4d4f;
+}
+
+@keyframes tce-slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   邮件列表
+   ======================================== */
+.tce-isolated-wrapper .tce-email-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tce-isolated-wrapper .tce-email-item {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--tce-border);
+    transition: var(--tce-transition);
+}
+
+.tce-isolated-wrapper .tce-email-item:first-child {
+    padding-top: 0;
+}
+
+.tce-isolated-wrapper .tce-email-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.tce-isolated-wrapper .tce-email-item:hover {
+    background: var(--tce-bg-light);
+    margin: 0 -16px;
+    padding: 20px 16px;
+    border-radius: var(--tce-radius-small);
+}
+
+.tce-isolated-wrapper .tce-email-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+
+.tce-isolated-wrapper .tce-email-subject {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--tce-text);
+    margin: 0;
+    flex: 1;
+}
+
+.tce-isolated-wrapper .tce-email-date {
+    font-size: 13px;
+    color: var(--tce-text-light);
+    white-space: nowrap;
+}
+
+.tce-isolated-wrapper .tce-email-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: var(--tce-text-secondary);
+}
+
+.tce-isolated-wrapper .tce-email-content {
+    color: var(--tce-text-secondary);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 12px;
+    max-height: 3.2em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.tce-isolated-wrapper .tce-email-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tce-isolated-wrapper .tce-email-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 12px;
+}
+
+.tce-isolated-wrapper .tce-email-status.sent {
+    background: #f6ffed;
+    color: var(--tce-success);
+}
+
+.tce-isolated-wrapper .tce-email-status.pending {
+    background: #fffbe6;
+    color: var(--tce-warning);
+}
+
+.tce-isolated-wrapper .tce-email-status i {
+    font-size: 12px;
+    width: auto;
+    height: auto;
+    line-height: 1;
+}
+
+.tce-isolated-wrapper .tce-email-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.tce-isolated-wrapper .tce-email-action {
+    font-size: 13px;
+    color: var(--tce-text-secondary);
+    cursor: pointer;
+    transition: var(--tce-transition);
+    padding: 4px 8px;
+    border-radius: var(--tce-radius-small);
+}
+
+.tce-isolated-wrapper .tce-email-action:hover {
+    color: var(--tce-primary);
+    background: var(--tce-primary-light);
+}
+
+.tce-isolated-wrapper .tce-delete-email:hover {
+    color: var(--tce-error);
+    background: #fff2f0;
+}
+
+.tce-isolated-wrapper .tce-no-emails {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--tce-text-light);
+    font-size: 15px;
+}
+
+/* ========================================
+   加载状态
+   ======================================== */
+.tce-isolated-wrapper .tce-loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.tce-isolated-wrapper .tce-loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--tce-border);
+    border-top-color: var(--tce-primary);
+    border-radius: 50%;
+    animation: tce-spin 0.8s linear infinite;
+    margin-bottom: 16px;
+}
+
+@keyframes tce-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.tce-isolated-wrapper .tce-loading-text {
+    color: var(--tce-text-secondary);
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.tce-isolated-wrapper .tce-loading-subtitle {
+    color: var(--tce-text-light);
+    font-size: 13px;
+}
+
+.tce-isolated-wrapper .tce-button-loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.tce-isolated-wrapper .tce-loading-wave {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.tce-isolated-wrapper .tce-loading-wave span {
+    width: 4px;
+    height: 16px;
+    background: white;
+    border-radius: 2px;
+    animation: tce-wave 1.2s ease-in-out infinite;
+}
+
+.tce-isolated-wrapper .tce-loading-wave span:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.tce-isolated-wrapper .tce-loading-wave span:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.tce-isolated-wrapper .tce-loading-wave span:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.tce-isolated-wrapper .tce-loading-wave span:nth-child(4) {
+    animation-delay: 0.3s;
+}
+
+@keyframes tce-wave {
+    0%,
+    40%,
+    100% {
+        transform: scaleY(0.4);
+        opacity: 0.5;
+    }
+    20% {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+}
+
+/* ========================================
+   响应式设计
+   ======================================== */
+@media (max-width: 768px) {
+    .tce-isolated-wrapper .tce-container {
+        margin: 1rem;
+        border-radius: var(--tce-radius-small);
+    }
+
+    .tce-isolated-wrapper .tce-tab-content {
+        padding: 20px;
+    }
+
+    .tce-isolated-wrapper .tce-tab {
+        padding: 12px 10px;
+        font-size: 14px;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .tce-isolated-wrapper .tce-tab span {
+        font-size: 12px;
+    }
+
+    .tce-isolated-wrapper .tce-form {
+        padding: 0;
+    }
+
+    .tce-isolated-wrapper .tce-form-group {
+        margin-bottom: 20px;
+    }
+
+    .tce-isolated-wrapper .tce-form input {
+        font-size: 14px;
+        padding: 10px 14px;
+    }
+
+    .tce-isolated-wrapper .ql-editor {
+        min-height: 150px !important;
+    }
+
+    .tce-isolated-wrapper .tce-button {
+        width: 100%;
+        padding: 12px 24px;
+        font-size: 15px;
+    }
+
+    .tce-isolated-wrapper .tce-email-item:hover {
+        margin: 0 -12px;
+        padding: 16px 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tce-isolated-wrapper .tce-container {
+        margin: 0.5rem;
+    }
+
+    .tce-isolated-wrapper .tce-tab-content {
+        padding: 16px;
+    }
+
+    .tce-isolated-wrapper .tce-tab {
+        padding: 10px 8px;
+    }
+
+    .tce-isolated-wrapper .tce-tab i {
+        font-size: 14px;
+    }
+
+    .tce-isolated-wrapper .tce-form label {
+        font-size: 13px;
+    }
+
+    .tce-isolated-wrapper .tce-form input {
+        font-size: 13px;
+        padding: 9px 12px;
+    }
+}
+
+/* ========================================
+   模态框样式
+   ======================================== */
+.tce-isolated-wrapper .tce-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.tce-isolated-wrapper .tce-modal.active {
+    display: flex;
+}
+
+.tce-isolated-wrapper .tce-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    animation: tce-fadeIn 0.3s ease;
+}
+
+.tce-isolated-wrapper .tce-modal-content {
+    position: relative;
+    background: #fff;
+    border-radius: var(--tce-radius);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 800px;
+    width: 90%;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    animation: tce-slideUp 0.3s ease;
+    z-index: 1;
+}
+
+@keyframes tce-slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.tce-isolated-wrapper .tce-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--tce-border);
+    background: #fafafa;
+}
+
+.tce-isolated-wrapper .tce-modal-title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--tce-text);
+}
+
+.tce-isolated-wrapper .tce-modal-close {
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: var(--tce-text-light);
+    cursor: pointer;
+    padding: 4px 8px;
+    line-height: 1;
+    transition: var(--tce-transition);
+    border-radius: var(--tce-radius-small);
+}
+
+.tce-isolated-wrapper .tce-modal-close:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--tce-text);
+}
+
+.tce-isolated-wrapper .tce-modal-body {
+    padding: 24px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.tce-isolated-wrapper .tce-modal-footer {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    padding: 16px 24px;
+    border-top: 1px solid var(--tce-border);
+    background: #fafafa;
+}
+
+.tce-isolated-wrapper .tce-modal-footer .tce-button {
+    padding: 8px 16px;
+    font-size: 14px;
+    min-width: auto;
+}
+
+/* 查看邮件样式 */
+.tce-isolated-wrapper .tce-view-field {
+    margin-bottom: 20px;
+}
+
+.tce-isolated-wrapper .tce-view-field:last-child {
+    margin-bottom: 0;
+}
+
+.tce-isolated-wrapper .tce-view-field label {
+    display: block;
+    font-weight: 600;
+    color: var(--tce-text-light);
+    font-size: 13px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tce-isolated-wrapper .tce-view-value {
+    font-size: 15px;
+    color: var(--tce-text);
+    line-height: 1.6;
+}
+
+.tce-isolated-wrapper .tce-view-content {
+    background: #f8f9fa;
+    border: 1px solid var(--tce-border);
+    border-radius: var(--tce-radius);
+    padding: 16px;
+    font-size: 15px;
+    color: var(--tce-text);
+    line-height: 1.8;
+    min-height: 200px;
+}
+
+.tce-isolated-wrapper .tce-view-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--tce-radius-small);
+    margin: 10px 0;
+}
+
+/* 编辑表单样式 */
+.tce-isolated-wrapper #tce-edit-form .tce-form-group {
+    margin-bottom: 20px;
+}
+
+.tce-isolated-wrapper #tce-edit-form label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--tce-text);
+    font-size: 14px;
+}
+
+.tce-isolated-wrapper #tce-edit-form input[type="email"],
+.tce-isolated-wrapper #tce-edit-form input[type="text"],
+.tce-isolated-wrapper #tce-edit-form input[type="date"] {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--tce-border);
+    border-radius: var(--tce-radius);
+    font-size: 15px;
+    transition: var(--tce-transition);
+    outline: none;
+}
+
+.tce-isolated-wrapper #tce-edit-form input:focus {
+    border-color: var(--tce-primary);
+    box-shadow: 0 0 0 3px var(--tce-primary-light);
+}
+
+.tce-isolated-wrapper #tce-edit-iframe {
+    width: 100%;
+    height: 300px;
+    border: none;
+    display: block;
+}
+
+.tce-isolated-wrapper #tce-edit-form .tce-editor-wrapper {
+    border: 1px solid var(--tce-border);
+    border-radius: var(--tce-radius);
+    overflow: hidden;
+    transition: var(--tce-transition);
+}
+
+.tce-isolated-wrapper #tce-edit-form .tce-editor-wrapper:focus-within {
+    border-color: var(--tce-primary);
+    box-shadow: 0 0 0 3px var(--tce-primary-light);
+}
+
+/* 按钮样式 */
+.tce-isolated-wrapper .tce-button-secondary {
+    background: #6c757d;
+    color: #fff;
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+.tce-isolated-wrapper .tce-button-secondary:hover {
+    background: #5a6268;
+}
+
+.tce-isolated-wrapper .tce-button-primary {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+/* 邮件操作按钮样式 */
+.tce-isolated-wrapper .tce-email-actions {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.tce-isolated-wrapper .tce-email-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    font-size: 13px;
+    color: var(--tce-primary);
+    text-decoration: none;
+    border-radius: var(--tce-radius-small);
+    transition: var(--tce-transition);
+    background: transparent;
+    border: none;
+}
+
+.tce-isolated-wrapper .tce-email-action:hover {
+    background: var(--tce-primary-light);
+}
+
+.tce-isolated-wrapper .tce-email-action i {
+    font-size: 12px;
+}
+
+.tce-isolated-wrapper .tce-delete-email {
+    color: #dc3545;
+}
+
+.tce-isolated-wrapper .tce-delete-email:hover {
+    background: rgba(220, 53, 69, 0.1);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .tce-isolated-wrapper .tce-modal-content {
+        width: 95%;
+        max-height: 95vh;
+    }
+    
+    .tce-isolated-wrapper .tce-modal-header,
+    .tce-isolated-wrapper .tce-modal-body,
+    .tce-isolated-wrapper .tce-modal-footer {
+        padding: 16px;
+    }
+    
+    .tce-isolated-wrapper .tce-modal-footer {
+        gap: 8px;
+    }
+    
+    .tce-isolated-wrapper .tce-modal-footer .tce-button {
+        flex: 1;
+        padding: 8px 12px;
+        font-size: 13px;
+        justify-content: center;
+    }
+    
+    .tce-isolated-wrapper #tce-edit-iframe {
+        height: 250px;
+    }
+}
+
+/* ========================================
+   公开信样式
+   ======================================== */
+.tce-isolated-wrapper .tce-public-letters-intro {
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: var(--tce-radius);
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.tce-isolated-wrapper .tce-intro-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    background: rgba(74, 144, 226, 0.1);
+    border-radius: 16px;
+    margin-bottom: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--tce-primary);
+}
+
+.tce-isolated-wrapper .tce-intro-badge i {
+    font-size: 13px;
+}
+
+.tce-isolated-wrapper .tce-public-letters-intro p {
+    margin: 0;
+    color: var(--tce-text-secondary);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.tce-isolated-wrapper .tce-public-item .tce-email-header {
+    margin-bottom: 12px;
+}
+
+.tce-isolated-wrapper .tce-public-item .tce-email-subject {
+    margin: 0;
+}
+
+.tce-isolated-wrapper .tce-public-item .tce-email-meta {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.tce-isolated-wrapper .tce-meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    color: var(--tce-text-secondary);
+}
+
+.tce-isolated-wrapper .tce-meta-item i {
+    font-size: 11px;
+    color: var(--tce-text-light);
+}
+
+.tce-isolated-wrapper .tce-load-more-container {
+    text-align: center;
+    padding: 24px 0;
+}
+
+.tce-isolated-wrapper .tce-load-more-container .tce-button {
+    min-width: 150px;
+}
+
+.tce-isolated-wrapper .tce-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 12px 16px;
+    background: #f8f9fa;
+    border-radius: var(--tce-radius);
+    border: 1px solid var(--tce-border);
+    transition: var(--tce-transition);
+}
+
+.tce-isolated-wrapper .tce-checkbox-label:hover {
+    background: #e9ecef;
+    border-color: var(--tce-primary);
+}
+
+.tce-isolated-wrapper .tce-checkbox-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    margin: 0;
+}
+
+.tce-isolated-wrapper .tce-checkbox-label span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--tce-text);
+}
+
+.tce-isolated-wrapper .tce-checkbox-label i {
+    font-size: 14px;
+    color: var(--tce-primary);
+}
+
+
+
+/* ========================================
+   引导页公开信区域
+   ======================================== */
+.tce-public-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+.tce-section-desc {
+    text-align: center;
+    color: #666;
+    font-size: 16px;
+    margin: -10px 0 40px 0;
+}
+
+#tce-landing-public-letters {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 12px;
+    padding: 32px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+#tce-landing-public-letters .tce-email-list {
+    margin: 0;
+}
+
+#tce-landing-public-letters .tce-no-emails {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+    font-size: 15px;
+}
+
+#tce-landing-public-letters .tce-loading-container {
+    padding: 60px 20px;
+}
+
+@media (max-width: 768px) {
+    .tce-public-section {
+        padding: 60px 0;
+    }
+    
+    #tce-landing-public-letters {
+        padding: 20px;
+        margin: 0 16px;
+    }
+}
+
+/* ========================================
+   独立公开信页面样式
+   ======================================== */
+.tce-isolated-wrapper .tce-public-page-header {
+    text-align: center;
+    padding: 60px 20px 40px;
+    margin-bottom: 32px;
+}
+
+.tce-isolated-wrapper .tce-header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    background: rgba(74, 144, 226, 0.1);
+    border: 1px solid rgba(74, 144, 226, 0.2);
+    border-radius: 20px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--tce-primary);
+}
+
+.tce-isolated-wrapper .tce-header-badge i {
+    font-size: 14px;
+}
+
+.tce-isolated-wrapper .tce-public-page-title {
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--tce-text);
+    margin: 0 0 16px 0;
+    line-height: 1.2;
+    display: block;
+}
+
+.tce-isolated-wrapper .tce-public-page-desc {
+    font-size: 15px;
+    color: var(--tce-text-secondary);
+    margin: 0 auto;
+    max-width: 600px;
+    line-height: 1.6;
+}
+
+.tce-isolated-wrapper .tce-public-page-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.tce-isolated-wrapper .tce-email-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tce-isolated-wrapper .tce-email-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 12px;
+}
+
+.tce-isolated-wrapper .tce-email-badge.public {
+    background: rgba(74, 144, 226, 0.1);
+    color: var(--tce-primary);
+}
+
+.tce-isolated-wrapper .tce-email-action {
+    margin-left: auto;
+}
+
+@media (max-width: 768px) {
+    .tce-isolated-wrapper .tce-public-page-header {
+        padding: 40px 16px 30px;
+    }
+    
+    .tce-isolated-wrapper .tce-public-page-title {
+        font-size: 28px;
+    }
+    
+    .tce-isolated-wrapper .tce-public-page-desc {
+        font-size: 14px;
+    }
+    
+    /* 移动端公开信列表 */
+    .tce-isolated-wrapper .tce-public-item .tce-email-header {
+        display: block;
+    }
+    
+    .tce-isolated-wrapper .tce-public-item .tce-email-subject {
+        margin-bottom: 8px;
+    }
+    
+    .tce-isolated-wrapper .tce-public-item .tce-email-date {
+        display: inline-block;
+        font-size: 12px;
+    }
+    
+    .tce-isolated-wrapper .tce-public-item .tce-email-meta {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 12px;
+        justify-content: flex-start;
+    }
+    
+    .tce-isolated-wrapper .tce-meta-item {
+        font-size: 12px;
+        white-space: nowrap;
+    }
+    
+    .tce-isolated-wrapper .tce-email-footer {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        align-items: center;
+    }
+    
+    .tce-isolated-wrapper .tce-email-action {
+        margin-left: auto;
+    }
+}
+
+

@@ -1,0 +1,337 @@
+.tce-admin-container {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.tce-admin-main {
+    flex: 2;
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    border-radius: 4px;
+    padding: 2rem;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+}
+
+.tce-admin-sidebar {
+    flex: 1;
+}
+
+.tce-admin-widget {
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+}
+
+.tce-admin-widget h3 {
+    margin: 0;
+    padding: 1rem;
+    background: #f1f1f1;
+    border-bottom: 1px solid #ccd0d4;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.tce-admin-content {
+    padding: 1rem;
+}
+
+.tce-admin-content ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.tce-admin-content li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f0f0f1;
+}
+
+.tce-admin-content li:last-child {
+    border-bottom: none;
+}
+
+.tce-admin-actions {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #f0f0f1;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.tce-admin-actions .button {
+    margin: 0;
+}
+
+.form-table th {
+    width: 200px;
+    padding: 20px 10px 20px 0;
+    vertical-align: top;
+}
+
+.form-table td {
+    padding: 15px 10px;
+}
+
+.form-table .description {
+    margin-top: 0.5rem;
+    color: #646970;
+    font-style: italic;
+}
+
+.tce-smtp-settings {
+    background: #f9f9f9;
+    border: 1px solid #e1e1e1;
+    border-radius: 4px;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+.tce-smtp-settings h4 {
+    margin: 0 0 1rem 0;
+    color: #1d2327;
+}
+
+.tce-template-help {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    padding: 15px;
+    margin-top: 10px;
+    font-size: 13px;
+}
+
+.tce-template-help h4 {
+    margin: 0 0 10px 0;
+    color: #495057;
+    font-size: 14px;
+}
+
+.tce-template-help pre {
+    background: #2d3748;
+    color: #e2e8f0;
+    padding: 15px;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-size: 12px;
+    line-height: 1.4;
+    margin: 10px 0;
+    max-width: 100%;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.tce-template-help code {
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.tce-template-help p {
+    margin: 5px 0;
+    color: #6c757d;
+}
+
+.form-table tr {
+    display: table-row !important;
+}
+
+.form-table tr.hidden {
+    display: none !important;
+}
+
+#tce-test-email {
+    position: relative;
+}
+
+#tce-test-email.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+#tce-test-email.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    margin: -8px 0 0 -8px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #0073aa;
+    border-radius: 50%;
+    animation: tce-spin 1s linear infinite;
+}
+
+@keyframes tce-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.tce-notice {
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 4px;
+    border-left: 4px solid;
+}
+
+.tce-notice.success {
+    background: #d1e7dd;
+    border-left-color: #0f5132;
+    color: #0f5132;
+}
+
+.tce-notice.error {
+    background: #f8d7da;
+    border-left-color: #842029;
+    color: #842029;
+}
+
+.tce-notice.info {
+    background: #d1ecf1;
+    border-left-color: #055160;
+    color: #055160;
+}
+
+@media (max-width: 1200px) {
+    .tce-admin-container {
+        flex-direction: column;
+    }
+    
+    .tce-admin-sidebar {
+        order: -1;
+    }
+}
+
+@media (max-width: 768px) {
+    .tce-admin-main {
+        padding: 1rem;
+    }
+    
+    .tce-admin-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .tce-admin-actions .button {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .form-table th,
+    .form-table td {
+        display: block;
+        width: 100%;
+        padding: 10px 0;
+    }
+    
+    .form-table th {
+        border-bottom: none;
+        padding-bottom: 5px;
+    }
+    
+    .tce-template-help {
+        overflow-x: hidden;
+    }
+    
+    .tce-template-help pre {
+        font-size: 11px;
+        padding: 10px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .tce-template-help code {
+        font-size: 11px;
+    }
+    
+    .tce-admin-main textarea.code {
+        font-size: 12px;
+        padding: 0.75rem;
+    }
+}
+
+.tce-admin-main .wp-editor-wrap {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.tce-admin-main .wp-editor-area {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.tce-admin-main textarea.code {
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    background: #f8f9fa;
+    border: 1px solid #e1e1e1;
+    border-radius: 4px;
+    padding: 1rem;
+}
+
+.tce-settings-group {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #f0f0f1;
+}
+
+.tce-settings-group:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.tce-settings-group h2 {
+    margin: 0 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #0073aa;
+    color: #1d2327;
+}
+
+.tce-help-text {
+    background: #f0f6fc;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    padding: 1rem;
+    margin: 1rem 0;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.tce-help-text h4 {
+    margin: 0 0 0.5rem 0;
+    color: #1d2327;
+}
+
+.tce-help-text ul {
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+}
+
+.tce-help-text li {
+    margin: 0.25rem 0;
+}
+
+.tce-status-indicator {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+
+.tce-status-indicator.active {
+    background: #00a32a;
+}
+
+.tce-status-indicator.inactive {
+    background: #d63638;
+}
+
+.tce-status-indicator.warning {
+    background: #dba617;
+}

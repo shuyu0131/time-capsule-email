@@ -3,7 +3,7 @@
 </p>
 
 <p align="center"><b>时光邮局</b></p>
-<p align="center">WordPress 时光邮件插件</p>
+<p align="center">WordPress 时光邮局插件</p>
 
 <p align="center">
 <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?style=flat-square" />

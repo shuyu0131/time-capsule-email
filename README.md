@@ -6,7 +6,7 @@
 <p align="center">WordPress 时光邮局插件</p>
 
 <p align="center">
-<img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?style=flat-square" />
+<img alt="Version" src="https://img.shields.io/badge/version-1.0.1-blue.svg?style=flat-square" />
 <img alt="WordPress" src="https://img.shields.io/badge/WordPress-5.0+-green.svg?style=flat-square" />
 <img alt="PHP" src="https://img.shields.io/badge/PHP-7.2+-purple.svg?style=flat-square" />
 <img alt="License" src="https://img.shields.io/badge/license-GPL%20v2-orange.svg?style=flat-square" />
@@ -31,11 +31,14 @@
 
 ## 环境要求
 
-* WordPress 5.0 及以上
+* WordPress 5.0 及以上，暂时不要使用6.9版本！！！
 * PHP 7.2 及以上
 * MySQL 5.6 及以上
 * 服务器环境推荐：Linux + Nginx/Apache
 * 浏览器推荐：Chrome、Edge、Firefox、Safari
+
+## 更新说明
+- **V1.0.1 ** 修复了"设为公开信"复选框点击无反应的问题
 
 ## 安装方法
 

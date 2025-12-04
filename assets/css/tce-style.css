@@ -1400,6 +1400,13 @@
     height: 18px;
     cursor: pointer;
     margin: 0;
+    /* 恢复复选框的原生外观和功能 */
+    appearance: auto;
+    -webkit-appearance: checkbox;
+    -moz-appearance: checkbox;
+    display: inline-block;
+    vertical-align: middle;
+    flex-shrink: 0;
 }
 
 .tce-isolated-wrapper .tce-checkbox-label span {
@@ -1591,5 +1598,3 @@
         margin-left: auto;
     }
 }
-
-

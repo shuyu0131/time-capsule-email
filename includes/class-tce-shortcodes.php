@@ -151,7 +151,7 @@ class TCE_Shortcodes {
     
     public function enqueue_scripts() {
         if (!is_admin()) {
-            wp_enqueue_style('font-awesome', '//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css', array(), '6.4.0');
+            wp_enqueue_style('font-awesome', '//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css', array(), '6.4.0');
             
             // 加载landing page样式
             wp_enqueue_style('tce-landing', TCE_PLUGIN_URL . 'assets/css/tce-landing.css', array(), TCE_VERSION);

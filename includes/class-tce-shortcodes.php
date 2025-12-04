@@ -151,13 +151,13 @@ class TCE_Shortcodes {
     
     public function enqueue_scripts() {
         if (!is_admin()) {
-            wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css', array(), '6.4.0');
+            wp_enqueue_style('font-awesome', '//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css', array(), '6.4.0');
             
             // 加载landing page样式
             wp_enqueue_style('tce-landing', TCE_PLUGIN_URL . 'assets/css/tce-landing.css', array(), TCE_VERSION);
             
             // 先加载Quill编辑器CSS
-            wp_enqueue_style('quill-css', 'https://cdn.quilljs.com/1.3.7/quill.snow.css', array(), '1.3.7');
+            wp_enqueue_style('quill-css', '//cdn.quilljs.com/1.3.7/quill.snow.css', array(), '1.3.7');
             
             // 最后加载我们的样式系统（依赖Quill CSS，这样可以覆盖部分样式但不影响Quill核心功能）
             wp_enqueue_style('tce-style', TCE_PLUGIN_URL . 'assets/css/tce-style.css', array('font-awesome', 'tce-landing', 'quill-css'), TCE_VERSION);
@@ -165,7 +165,7 @@ class TCE_Shortcodes {
             wp_enqueue_script('jquery');
             
             // 加载Quill编辑器JS
-            wp_enqueue_script('quill-js', 'https://cdn.quilljs.com/1.3.7/quill.min.js', array(), '1.3.7', true);
+            wp_enqueue_script('quill-js', '//cdn.quilljs.com/1.3.7/quill.min.js', array(), '1.3.7', true);
             
             wp_enqueue_script('tce-script', TCE_PLUGIN_URL . 'assets/js/tce-script.js', array('jquery', 'quill-js'), TCE_VERSION, true);
             

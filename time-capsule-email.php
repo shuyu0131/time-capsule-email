@@ -3,7 +3,7 @@
  * Plugin Name: 时光邮局
  * Plugin URI: /wp-admin/options-general.php?page=time-capsule-email
  * Description: 让用户通过电子邮件记录当下，设置未来的发送时间，让未来的自己收到过去的消息。
- * Version: 1.0.1
+ * Version: 1.2.1
  * Author: 属余
  * Author URI: https://waikanl.cn/
  * Text Domain: time-capsule-email
@@ -22,7 +22,7 @@ if (!defined('ABSPATH')) {
 // 定义插件常量
 define('TCE_PLUGIN_PATH', plugin_dir_path(__FILE__));
 define('TCE_PLUGIN_URL', plugin_dir_url(__FILE__));
-define('TCE_VERSION', '1.2.1');
+define('TCE_VERSION', '1.0.1');
 
 // 自动加载类
 spl_autoload_register(function ($class) {

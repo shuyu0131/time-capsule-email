@@ -4,6 +4,9 @@ if (!defined('ABSPATH')) {
 }
 
 class TCE_Shortcodes {
+    const TEMPLATE_SLUG = 'tce-time-capsule.php';
+    const TEMPLATE_NAME = '时光邮局页面';
+
     private static $instance = null;
     
     public static function get_instance() {
@@ -29,6 +32,86 @@ class TCE_Shortcodes {
         add_action('wp_ajax_tce_verify_email', array($this, 'ajax_verify_email'));
         add_action('wp_enqueue_scripts', array($this, 'enqueue_scripts'));
         add_action('wp_head', array($this, 'add_seo_meta_tags'));
+        add_filter('document_title_parts', array($this, 'filter_document_title'), 20);
+        add_filter('get_the_excerpt', array($this, 'filter_excerpt'), 20, 2);
+        add_filter('theme_page_templates', array($this, 'register_page_template'));
+        add_filter('template_include', array($this, 'load_page_template'));
+    }
+
+    public function register_page_template($templates) {
+        $templates[self::TEMPLATE_SLUG] = self::TEMPLATE_NAME;
+        return $templates;
+    }
+
+    public function load_page_template($template) {
+        if (!is_singular('page')) {
+            return $template;
+        }
+
+        $slug = get_page_template_slug();
+        if ($slug !== self::TEMPLATE_SLUG) {
+            return $template;
+        }
+
+        $plugin_template = TCE_PLUGIN_PATH . 'templates/' . self::TEMPLATE_SLUG;
+        if (file_exists($plugin_template)) {
+            return $plugin_template;
+        }
+
+        return $template;
+    }
+
+    private function is_tce_page() {
+        global $post;
+
+        if (!is_singular()) {
+            return false;
+        }
+
+        if (is_singular('page') && get_page_template_slug() === self::TEMPLATE_SLUG) {
+            return true;
+        }
+
+        if ($post && has_shortcode($post->post_content, 'time_capsule_email')) {
+            return true;
+        }
+
+        if ($post && has_shortcode($post->post_content, 'time_capsule_public')) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function filter_document_title($title) {
+        if (!$this->is_tce_page()) {
+            return $title;
+        }
+
+        $settings = get_option('tce_email_settings', array());
+        $seo_title = !empty($settings['seo_title']) 
+            ? $settings['seo_title'] 
+            : get_bloginfo('name') . ' - ' . __('时光邮局', 'time-capsule-email');
+
+        $title['title'] = $seo_title;
+        return $title;
+    }
+
+    public function filter_excerpt($excerpt, $post) {
+        if (!$this->is_tce_page()) {
+            return $excerpt;
+        }
+
+        if (!empty($excerpt)) {
+            return $excerpt;
+        }
+
+        $settings = get_option('tce_email_settings', array());
+        $seo_description = !empty($settings['seo_description']) 
+            ? $settings['seo_description'] 
+            : __('给未来写封信，记录此刻的心情。无论是一年后还是五年后，这封信都会准时送达。', 'time-capsule-email');
+
+        return $seo_description;
     }
     
     /**
@@ -95,10 +178,8 @@ class TCE_Shortcodes {
      * 添加SEO meta标签
      */
     public function add_seo_meta_tags() {
-        global $post;
-        
-        // 只在包含时光邮局shortcode的页面添加SEO标签
-        if (!is_singular() || !has_shortcode($post->post_content, 'time_capsule_email') && !has_shortcode($post->post_content, 'time_capsule_public')) {
+        // 只在包含时光邮局shortcode或使用插件模板的页面添加SEO标签
+        if (!$this->is_tce_page()) {
             return;
         }
         

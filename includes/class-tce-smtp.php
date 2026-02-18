@@ -33,11 +33,17 @@ class TCE_SMTP_Mailer {
      * 使用高优先级确保配置不被其他插件覆盖
      */
     public function configure_phpmailer($phpmailer) {
+        if (empty($this->settings['smtp_host']) || empty($this->settings['smtp_username'])) {
+            return;
+        }
+
         // 强制重新配置SMTP，防止被其他插件修改
         $phpmailer->isSMTP();
         $phpmailer->Host = $this->settings['smtp_host'];
-        $phpmailer->SMTPAuth = true;
-        $phpmailer->Port = intval($this->settings['smtp_port']);
+        if (!empty($this->settings['smtp_port'])) {
+            $phpmailer->Port = intval($this->settings['smtp_port']);
+        }
+        $phpmailer->SMTPAuth = !empty($this->settings['smtp_username']);
         $phpmailer->Username = $this->settings['smtp_username'];
         $phpmailer->Password = $this->settings['smtp_password'];
         
@@ -46,6 +52,8 @@ class TCE_SMTP_Mailer {
             $phpmailer->SMTPSecure = 'ssl';
         } elseif ($this->settings['smtp_encryption'] === 'tls') {
             $phpmailer->SMTPSecure = 'tls';
+        } else {
+            $phpmailer->SMTPSecure = '';
         }
         
         // 设置发件人
@@ -59,7 +67,16 @@ class TCE_SMTP_Mailer {
         }
         
         // 设置发件人（不清除已有的收件人）
-        $phpmailer->setFrom($from_email, $this->settings['from_name'], false);
+        if (!empty($from_email)) {
+            $phpmailer->From = $from_email;
+        }
+        if (!empty($this->settings['from_name'])) {
+            $phpmailer->FromName = $this->settings['from_name'];
+        }
+        // 确保信封发件人与 From 一致，兼容 Aliyun 等 SMTP 要求
+        if (empty($phpmailer->Sender) || $phpmailer->Sender !== $phpmailer->From) {
+            $phpmailer->Sender = $phpmailer->From;
+        }
         
         // 设置回复地址
         if (!empty($this->settings['reply_to'])) {
@@ -69,7 +86,6 @@ class TCE_SMTP_Mailer {
         // 设置超时和其他选项
         $phpmailer->Timeout = 30;
         $phpmailer->SMTPKeepAlive = false;
-        $phpmailer->SMTPAutoTLS = true;
         
         // 禁用调试输出
         $phpmailer->SMTPDebug = 0;
@@ -98,14 +114,16 @@ class TCE_SMTP_Mailer {
         require_once ABSPATH . WPINC . '/PHPMailer/Exception.php';
         
         try {
-            // 创建独立的PHPMailer实例
+            // 创建独立的PHPMailer实例，避免主题/插件改写 wp_mail 模板
             $mail = new PHPMailer\PHPMailer\PHPMailer(true);
             
             // 配置SMTP
             $mail->isSMTP();
             $mail->Host = $this->settings['smtp_host'];
-            $mail->SMTPAuth = true;
-            $mail->Port = intval($this->settings['smtp_port']);
+            if (!empty($this->settings['smtp_port'])) {
+                $mail->Port = intval($this->settings['smtp_port']);
+            }
+            $mail->SMTPAuth = !empty($this->settings['smtp_username']);
             $mail->Username = $this->settings['smtp_username'];
             $mail->Password = $this->settings['smtp_password'];
             
@@ -114,6 +132,8 @@ class TCE_SMTP_Mailer {
                 $mail->SMTPSecure = 'ssl';
             } elseif ($this->settings['smtp_encryption'] === 'tls') {
                 $mail->SMTPSecure = 'tls';
+            } else {
+                $mail->SMTPSecure = '';
             }
             
             // 设置发件人
@@ -127,6 +147,10 @@ class TCE_SMTP_Mailer {
             }
             
             $mail->setFrom($from_email, $this->settings['from_name']);
+            // 确保信封发件人与 From 一致，兼容 Aliyun 等 SMTP 要求
+            if (empty($mail->Sender) || $mail->Sender !== $mail->From) {
+                $mail->Sender = $mail->From;
+            }
             
             // 设置收件人
             $mail->addAddress($to);
@@ -145,7 +169,6 @@ class TCE_SMTP_Mailer {
             // 设置超时和其他选项
             $mail->Timeout = 30;
             $mail->SMTPKeepAlive = false;
-            $mail->SMTPAutoTLS = true;
             $mail->SMTPDebug = 0;
             
             // 发送邮件
@@ -173,127 +196,76 @@ class TCE_SMTP_Mailer {
             );
         }
         
-        // 确保PHPMailer已加载
-        require_once ABSPATH . WPINC . '/PHPMailer/PHPMailer.php';
-        require_once ABSPATH . WPINC . '/PHPMailer/SMTP.php';
-        require_once ABSPATH . WPINC . '/PHPMailer/Exception.php';
-        
-        // 捕获调试输出
+        // 使用 wp_mail 走 WordPress 全局 PHPMailer，与其他插件路径一致
         $debug_output = '';
-        
-        try {
-            $mail = new PHPMailer\PHPMailer\PHPMailer(true);
-            
-            // 启用调试模式捕获详细信息
-            $mail->SMTPDebug = 2;
-            $mail->Debugoutput = function($str, $level) use (&$debug_output) {
+        $summary = '';
+        $mailer_hook = function($phpmailer) use (&$debug_output, &$summary) {
+            $this->configure_phpmailer($phpmailer);
+
+            $phpmailer->SMTPDebug = 2;
+            $phpmailer->Debugoutput = function($str, $level) use (&$debug_output) {
                 $debug_output .= $str . "\n";
             };
-            
-            // 配置SMTP
-            $mail->isSMTP();
-            $mail->Host = trim($this->settings['smtp_host']);
-            $mail->SMTPAuth = true;
-            $mail->Port = intval($this->settings['smtp_port']);
-            $mail->Username = trim($this->settings['smtp_username']);
-            $mail->Password = $this->settings['smtp_password']; // 不trim密码，可能包含空格
-            
-            // 设置加密方式
-            if ($this->settings['smtp_encryption'] === 'ssl') {
-                $mail->SMTPSecure = 'ssl';
-            } elseif ($this->settings['smtp_encryption'] === 'tls') {
-                $mail->SMTPSecure = 'tls';
-            }
-            
-            // 设置超时和选项
-            $mail->Timeout = 15;
-            $mail->SMTPAutoTLS = true;
-            $mail->SMTPOptions = array(
-                'ssl' => array(
-                    'verify_peer' => false,
-                    'verify_peer_name' => false,
-                    'allow_self_signed' => true
-                )
-            );
-            
-            // 设置必要的邮件信息以进行完整测试
-            $mail->setFrom($this->settings['smtp_username'], 'Test');
-            $mail->addAddress($this->settings['smtp_username']);
-            $mail->Subject = 'SMTP Test';
-            $mail->Body = 'Test';
-            
-            // 尝试发送（但不真正发送）
-            $mail->preSend();
-            
-            // 如果到这里没有异常，说明认证成功
+
+            $summary = "Mailer: " . $phpmailer->Mailer . "\n" .
+                       "Host: " . $phpmailer->Host . "\n" .
+                       "Port: " . $phpmailer->Port . "\n" .
+                       "SMTPSecure: " . $phpmailer->SMTPSecure . "\n" .
+                       "SMTPAuth: " . ($phpmailer->SMTPAuth ? 'true' : 'false') . "\n" .
+                       "From: " . $phpmailer->From . "\n" .
+                       "Sender: " . $phpmailer->Sender;
+        };
+        add_action('phpmailer_init', $mailer_hook, 10002);
+
+        $wp_mail_error = null;
+        $error_hook = function($wp_error) use (&$wp_mail_error) {
+            $wp_mail_error = $wp_error;
+        };
+        add_action('wp_mail_failed', $error_hook);
+
+        $email_settings = get_option('tce_email_settings', array());
+        $to = '';
+        if (!empty($email_settings['test_email']) && is_email($email_settings['test_email'])) {
+            $to = $email_settings['test_email'];
+        } elseif (!empty($this->settings['from_email']) && is_email($this->settings['from_email'])) {
+            $to = $this->settings['from_email'];
+        } else {
+            $to = get_option('admin_email');
+        }
+        $subject = 'SMTP Test';
+        $body = 'Test';
+        $headers = array('Content-Type: text/plain; charset=UTF-8');
+
+        $sent = wp_mail($to, $subject, $body, $headers);
+
+        remove_action('phpmailer_init', $mailer_hook, 10002);
+        remove_action('wp_mail_failed', $error_hook);
+
+        if ($sent) {
             return array(
-                'success' => true, 
+                'success' => true,
                 'message' => __('SMTP连接和认证测试成功！配置正确。', 'time-capsule-email')
             );
-            
-        } catch (Exception $e) {
-            $error_msg = $e->getMessage();
-            
-            // 记录错误到日志（仅在测试失败时）
-            if (defined('WP_DEBUG') && WP_DEBUG) {
-                error_log('TCE SMTP Test Failed: ' . $error_msg);
-            }
-            
-            // 分析错误类型并提供具体建议
-            if (strpos($error_msg, '535') !== false || 
-                strpos($error_msg, 'Authentication') !== false || 
-                strpos($error_msg, 'authenticate') !== false ||
-                strpos($error_msg, 'Username and Password not accepted') !== false) {
-                
-                // 检查是否是163/QQ/126邮箱
-                $is_china_mail = (strpos($this->settings['smtp_host'], '163.com') !== false || 
-                                 strpos($this->settings['smtp_host'], 'qq.com') !== false || 
-                                 strpos($this->settings['smtp_host'], '126.com') !== false);
-                
-                if ($is_china_mail) {
-                    return array(
-                        'success' => false, 
-                        'message' => __('SMTP认证失败！', 'time-capsule-email') . "\n\n" .
-                                   __('您使用的是163/QQ/126邮箱，请确认：', 'time-capsule-email') . "\n" .
-                                   __('1. 已在邮箱设置中开启SMTP服务', 'time-capsule-email') . "\n" .
-                                   __('2. 使用的是授权码，不是邮箱登录密码', 'time-capsule-email') . "\n" .
-                                   __('3. 用户名是完整邮箱地址（如：user@163.com）', 'time-capsule-email') . "\n" .
-                                   __('4. 授权码复制时没有多余空格', 'time-capsule-email') . "\n\n" .
-                                   __('当前配置：', 'time-capsule-email') . "\n" .
-                                   'SMTP主机: ' . $this->settings['smtp_host'] . "\n" .
-                                   'SMTP端口: ' . $this->settings['smtp_port'] . "\n" .
-                                   'SMTP用户名: ' . $this->settings['smtp_username'] . "\n" .
-                                   'SMTP加密: ' . strtoupper($this->settings['smtp_encryption'])
-                    );
-                } else {
-                    return array(
-                        'success' => false, 
-                        'message' => __('SMTP认证失败！请检查用户名和密码是否正确。', 'time-capsule-email') . "\n\n" .
-                                   __('错误详情: ', 'time-capsule-email') . $error_msg
-                    );
-                }
-                
-            } elseif (strpos($error_msg, 'connect') !== false || 
-                     strpos($error_msg, 'Connection') !== false ||
-                     strpos($error_msg, 'timed out') !== false) {
-                return array(
-                    'success' => false, 
-                    'message' => __('无法连接到SMTP服务器！', 'time-capsule-email') . "\n\n" .
-                               __('可能的原因：', 'time-capsule-email') . "\n" .
-                               __('1. SMTP主机地址错误', 'time-capsule-email') . "\n" .
-                               __('2. 端口号错误（465用SSL，587用TLS）', 'time-capsule-email') . "\n" .
-                               __('3. 服务器防火墙阻止了SMTP端口', 'time-capsule-email') . "\n" .
-                               __('4. 网络连接问题', 'time-capsule-email') . "\n\n" .
-                               __('错误详情: ', 'time-capsule-email') . $error_msg
-                );
-            } else {
-                return array(
-                    'success' => false, 
-                    'message' => __('SMTP测试失败: ', 'time-capsule-email') . $error_msg . "\n\n" .
-                               __('请检查所有配置是否正确，或查看服务器错误日志获取更多信息。', 'time-capsule-email')
-                );
-            }
         }
+
+        $error_msg = '';
+        if ($wp_mail_error instanceof WP_Error) {
+            $error_msg = $wp_mail_error->get_error_message();
+        }
+        $debug_output = trim($debug_output);
+        $summary = trim($summary);
+
+        if (defined('WP_DEBUG') && WP_DEBUG) {
+            error_log('TCE SMTP Test Failed (wp_mail): ' . ($error_msg ?: 'Unknown error'));
+        }
+
+        return array(
+            'success' => false,
+            'message' => __('SMTP测试失败: ', 'time-capsule-email') .
+                        ($error_msg ?: __('未知错误，请查看服务器错误日志。', 'time-capsule-email')) .
+                        (!empty($summary) ? "\n\n" . __('当前配置: ', 'time-capsule-email') . "\n" . $summary : '') .
+                        (!empty($debug_output) ? "\n\n" . __('调试输出: ', 'time-capsule-email') . "\n" . $debug_output : '')
+        );
     }
     
     /**

@@ -129,27 +129,6 @@ class TCE_Email {
         return false;
     }
 
-    private function configure_smtp($settings) {
-        if (empty($settings['smtp_host'])) {
-            return;
-        }
-        
-        add_action('phpmailer_init', function($phpmailer) use ($settings) {
-            $phpmailer->isSMTP();
-            $phpmailer->Host = $settings['smtp_host'];
-            $phpmailer->SMTPAuth = true;
-            $phpmailer->Port = $settings['smtp_port'] ?: 587;
-            $phpmailer->Username = $settings['smtp_username'];
-            $phpmailer->Password = $settings['smtp_password'];
-            
-            if ($settings['smtp_encryption'] === 'ssl') {
-                $phpmailer->SMTPSecure = 'ssl';
-            } elseif ($settings['smtp_encryption'] === 'tls') {
-                $phpmailer->SMTPSecure = 'tls';
-            }
-        });
-    }
-
     public function get_email_template($message, $title = '') {
         $blog_name = get_bloginfo('name');
         $site_url = home_url('/');

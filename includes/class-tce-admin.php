@@ -569,6 +569,7 @@ class TCE_Admin {
         $options = get_option('tce_email_settings');
         $value = isset($options['smtp_port']) ? $options['smtp_port'] : '587';
         echo '<input type="number" name="tce_email_settings[smtp_port]" value="' . esc_attr($value) . '" class="small-text" min="1" max="65535" />';
+        echo '<p class="description">' . __('163/QQ/126邮箱推荐使用 465 + SSL（部分环境 587 + TLS 可能无法连接）', 'time-capsule-email') . '</p>';
     }
     
     public function smtp_username_callback() {
